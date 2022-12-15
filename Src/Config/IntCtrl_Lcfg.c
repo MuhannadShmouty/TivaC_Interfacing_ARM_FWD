@@ -1,55 +1,77 @@
 /******************************************************************************************************
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------*/
-/*          File:       Std_Types.h
- *        Module:       -
- *   Description:       <File Description here>
- *
+/*      
+ *  \file  IntCtrl_Lcfg.c
+ *  \brief 
+ * 
+ *  \details
  *****************************************************************************************************/
-
-#ifndef STD_TYPES_H
-#define STD_TYPES_H
 
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
+#include "IntCtrl_Types.h"
 
 /******************************************************************************************************
- *  GLOBAL CONSTANT MACROS
- *****************************************************************************************************/
-#define STD_TYPES_OK            1
-#define STD_TYPES_NOK           0
-
-#define NULL                   ((void*)0)
-/******************************************************************************************************
- *  GLOBAL FUNCTION MACROS
+ *  LOCAL MACROS CONSTANT\FUNCTIONS
  *****************************************************************************************************/
 
 /******************************************************************************************************
- *  GLOBAL DATA TYPES AND STRUCTURES
- *****************************************************************************************************/
-/* Signed integer types */
-typedef   signed           char int8_t;
-typedef   signed short     int int16_t;
-typedef   signed           int int32_t;
-
-/* Unsigned integer types */
-typedef unsigned          char uint8_t;
-typedef unsigned short     int uint16_t;
-typedef unsigned           int uint32_t;
-
-/******************************************************************************************************
- *  GLOBAL DATA PROTOTYES
+ *  LOCAL DATA
  *****************************************************************************************************/
 
 /******************************************************************************************************
- *  GLOBAL FUNCTION PROTOTYPES
+ *  GLOBAL DATA
  *****************************************************************************************************/
+IntCtrl_ExceptionType activeExceptions[] = {
+	/**	 	Fill in the exceptions to be active	  **/
+	/* TODO:: Comment for usage */
+	
+};
+uint8_t IntCtrl_nActvExp = sizeof(activeExceptions)/sizeof(IntCtrl_ExceptionType);
 
+IntCtrl_InterruptType activeInterrupts[] = {
+	/**	 	Fill in the interrupts to be active	  **/
+	/* TODO:: Comment for usage */
+	IntrCtrl_GPIO_Port_A
+};
+uint8_t IntCtrl_nActvInr = sizeof(activeInterrupts)/sizeof(IntCtrl_InterruptType);
+IntCtrl_InterruptPriority interruptPriorityVals[] = {
+	/**	 	Fill in the interrupts priority values	  **/
+	/* TODO:: Comment for usage */
+	{IntrCtrl_GPIO_Port_A, 0x04}
+};
 
-#endif
+IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
+	{SVCall_IRQ, 0x00},
+	{SysTick_IRQ,0x02}
+};
+/******************************************************************************************************
+ *  LOCAL FUNCTION PROTOTYPES
+ *****************************************************************************************************/
 
 /******************************************************************************************************
- *  END OF FILE:    Std_Types.h
+ *  LOCAL FUNCTIONS
  *****************************************************************************************************/
- 
+
+/******************************************************************************************************
+ *  GLOBAL FUNCTIONS
+ *****************************************************************************************************/
+
+/********************************************************************************
+ * \Syntax              : Std ReturnType FunctionName (AnyType parameterName)
+ * \Description         : Describe this service
+ * 
+ * \Sync\Async          : Synchronous
+ * \Reentrancy          : Non Reentrant
+ * \Parameters     (in) : parameterName     Parameter Description
+ * \Parameters     (out): None
+ * \Return value        : Std_ReturnType    E_OK
+ *                                          E_NOT_OK 
+ *******************************************************************************/
+
+
+/******************************************************************************************************
+ *  END OF FILE:    main.c
+ *****************************************************************************************************/
