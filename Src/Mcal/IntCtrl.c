@@ -55,13 +55,13 @@ static void SetPriorityGrouping(void)
 	#ifdef INTCTRL_GR_8_SB_1_PRIORITY_GROUP
 	APINT = (VECT_KEY_MSK << VECT_KEY_POS) | (0x00000000 << APINT_PRIGROUP_POS);
 	
-	#elif INTCTRL_GR_4_SB_2_PRIORITY_GROUP
+	#elif defined(INTCTRL_GR_4_SB_2_PRIORITY_GROUP)
 	APINT = (VECT_KEY_MSK << VECT_KEY_POS) | (0x00000005 << APINT_PRIGROUP_POS);
 	
-	#elif INTCTRL_GR_2_SB_4_PRIORITY_GROUP
+	#elif defined(INTCTRL_GR_2_SB_4_PRIORITY_GROUP)
 	APINT = (VECT_KEY_MSK << VECT_KEY_POS) | (0x00000006 << APINT_PRIGROUP_POS);
 	
-	#elif INTCTRL_GR_1_SB_8_PRIORITY_GROUP
+	#elif defined(INTCTRL_GR_1_SB_8_PRIORITY_GROUP)
 	APINT = (VECT_KEY_MSK << VECT_KEY_POS) | (0x00000007 << APINT_PRIGROUP_POS);
 	
 	#endif
@@ -111,5 +111,5 @@ void IntCtrl_DisableInterrupt(IntCtrl_InterruptType IntNum)
 	DISx(IntNum) |= 1 << (IntNum & 32);
 }
 /******************************************************************************************************
- *  END OF FILE:    FileName.c
+ *  END OF FILE:    IntCtrl.c
  *****************************************************************************************************/

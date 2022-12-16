@@ -25,7 +25,7 @@
  *			INTCTRL_GR_2_SB_4_PRIORITY_GROUP					:		bx.yy
  *			INTCTRL_GR_1_SB_8_PRIORITY_GROUP					:		b.yyy
 */
-#define INTCTRL_GR_8_SB_1_PRIORITY_GROUP
+#define INTCTRL_GR_4_SB_2_PRIORITY_GROUP
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  **************************************************************************************************************************/
