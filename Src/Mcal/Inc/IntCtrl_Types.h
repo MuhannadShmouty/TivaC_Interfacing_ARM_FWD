@@ -70,7 +70,7 @@ typedef enum
 	IntrCtrl_SSI2 = 57, IntrCtrl_SSI3,
 	IntrCtrl_UART3, IntrCtrl_UART4, IntrCtrl_UART5, IntrCtrl_UART6, IntrCtrl_UART7,
 	IntrCtrl_I2C2 = 68, IntrCtrl_I2C3,
-	IntrCtrl_16_32_Timer_4A, IntrCtrl_16_32_Time_4B,
+	IntrCtrl_16_32_Timer_4A, IntrCtrl_16_32_Timer_4B,
 	IntrCtrl_16_32_Timer_5A = 92, IntrCtrl_16_32_Timer_5B,
 	IntrCtrl_32_64_Timer_0A, IntrCtrl_32_64_Timer_0B,
 	IntrCtrl_32_64_Timer_1A, IntrCtrl_32_64_Timer_1B,

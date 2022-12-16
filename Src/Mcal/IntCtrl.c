@@ -44,6 +44,7 @@ extern uint8_t IntCtrl_nActvInr;
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
 static void SetPriorityGrouping(void);
+static bool isInterrutptType(uint8_t intNum);
 
 /******************************************************************************************************
  *  LOCAL FUNCTIONS
@@ -67,7 +68,95 @@ static void SetPriorityGrouping(void)
 	#endif
 }
 
-
+static bool isInterrutptType(uint8_t intNum)
+{
+	bool isValid = true;
+	switch(intNum)
+	{
+		case IntrCtrl_GPIO_Port_A:
+		case IntrCtrl_GPIO_Port_B:
+		case IntrCtrl_GPIO_Port_C:
+		case IntrCtrl_GPIO_Port_D:
+		case IntrCtrl_GPIO_Port_E:
+		case IntrCtrl_UART0:
+		case IntrCtrl_UART1:
+		case IntrCtrl_SSI0:
+		case IntrCtrl_I2C0:
+		case IntrCtrl_PWM0_Fault:
+		case IntrCtrl_PWM0_Generator_0:
+		case IntrCtrl_PWM0_Generator_1:
+		case IntrCtrl_PWM0_Generator_2:
+		case IntrCtrl_QEI0:
+		case IntrCtrl_ADC0_Sequence_0:
+		case IntrCtrl_ADC0_Sequence_1:
+		case IntrCtrl_ADC0_Sequence_2:
+		case IntrCtrl_ADC0_Sequence_3:
+		case IntrCtrl_Watchdog_Timers_0_and_1:
+		case IntrCtrl_16_32_Timer_0A:
+		case IntrCtrl_16_32_Timer_0B:
+		case IntrCtrl_16_32_Timer_1A:
+		case IntrCtrl_16_32_Timer_1B:
+		case IntrCtrl_16_32_Timer_2A:
+		case IntrCtrl_16_32_Timer_2B:
+		case IntrCtrl_Analog_Comparator_0:
+		case IntrCtrl_Analog_Comparator_1:
+		case IntrCtrl_System_Control:
+		case IntrCtrl_Flash_Memory_Control_and_EEPROM_Control:
+		case IntrCtrl_GPIO_Port_F:
+		case IntrCtrl_UART2:
+		case IntrCtrl_SSI1:
+		case IntrCtrl_Timer_3A:
+		case IntrCtrl_Timer_3B:
+		case IntrCtrl_I2C1:
+		case IntrCtrl_QEI1:
+		case IntrCtrl_CAN0:
+		case IntrCtrl_CAN1:
+		case IntrCtrl_Hibernation_Module:
+		case IntrCtrl_USB:
+		case IntrCtrl_PWM0_Generator_3:
+		case IntrCtrl_uDMA_Software:
+		case IntrCtrl_uDMA_Error:
+		case IntrCtrl_ADC1_Sequence_0:
+		case IntrCtrl_ADC1_Sequence_1:
+		case IntrCtrl_ADC1_Sequence_2:
+		case IntrCtrl_ADC1_Sequence_3:
+		case IntrCtrl_SSI2:
+		case IntrCtrl_SSI3:
+		case IntrCtrl_UART3:
+		case IntrCtrl_UART4:
+		case IntrCtrl_UART5:
+		case IntrCtrl_UART6:
+		case IntrCtrl_UART7:
+		case IntrCtrl_I2C2:
+		case IntrCtrl_I2C3:
+		case IntrCtrl_16_32_Timer_4A:
+		case IntrCtrl_16_32_Timer_4B:
+		case IntrCtrl_16_32_Timer_5A:
+		case IntrCtrl_16_32_Timer_5B:
+		case IntrCtrl_32_64_Timer_0A:
+		case IntrCtrl_32_64_Timer_0B:
+		case IntrCtrl_32_64_Timer_1A:
+		case IntrCtrl_32_64_Timer_1B:
+		case IntrCtrl_32_64_Timer_2A:
+		case IntrCtrl_32_64_Timer_2B:
+		case IntrCtrl_32_64_Timer_3A:
+		case IntrCtrl_32_64_Timer_3B:
+		case IntrCtrl_32_64_Timer_4A:
+		case IntrCtrl_32_64_Timer_4B:
+		case IntrCtrl_32_64_Timer_5A:
+		case IntrCtrl_32_64_Timer_5B:
+		case IntrCtrl_System_Exception:
+		case IntrCtrl_PWM1_Generator_0:
+		case IntrCtrl_PWM1_Generator_1:
+		case IntrCtrl_PWM1_Generator_2:
+		case IntrCtrl_PWM1_Generator_3:
+		case IntrCtrl_PWM1_Fault:
+			break;
+		default:
+			isValid = false;
+	}
+	return isValid;
+}
 /******************************************************************************************************
  *  GLOBAL FUNCTIONS
  *****************************************************************************************************/
@@ -92,7 +181,7 @@ void  IntCtrl_Init(void)
 uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriority)
 {
 	/**		Check for valid priority value  **/
-	if (u32_IntPriority < THREE_BITS_MAX_VALUE)
+	if ((u32_IntPriority < THREE_BITS_MAX_VALUE) && isInterrutptType(IntNum))
 	{
 		PRIx(IntNum) = u32_IntPriority	<< (IntNum % 4);
 		return STD_TYPES_OK;
@@ -103,12 +192,14 @@ uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriori
 
 void IntCtrl_EnableInterrupt(IntCtrl_InterruptType IntNum)
 {
-	ENx(IntNum) |= 1 << (IntNum & 32);
+	if (isInterrutptType(IntNum))
+		ENx(IntNum) |= 1 << (IntNum & 32);
 }
 
 void IntCtrl_DisableInterrupt(IntCtrl_InterruptType IntNum)
 {
-	DISx(IntNum) |= 1 << (IntNum & 32);
+	if (isInterrutptType(IntNum))
+		DISx(IntNum) |= 1 << (IntNum & 32);
 }
 /******************************************************************************************************
  *  END OF FILE:    IntCtrl.c
