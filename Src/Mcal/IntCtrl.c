@@ -176,6 +176,12 @@ void  IntCtrl_Init(void)
 {
 	/* Set priority grouping in APINT	*/
 	SetPriorityGrouping();
+	
+	for (uint8_t idx = 0; idx < IntCtrl_nActvInr; idx++)
+	{
+		IntCtrl_EnableInterrupt(activeInterrupts[idx]);
+		IntCtrl_SetPriority(interruptPriorityVals[idx].interruptNum, interruptPriorityVals[idx].priorityVal);
+	}
 }
 
 uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriority)
@@ -183,7 +189,7 @@ uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriori
 	/**		Check for valid priority value  **/
 	if ((u32_IntPriority < THREE_BITS_MAX_VALUE) && isInterrutptType(IntNum))
 	{
-		PRIx(IntNum) = u32_IntPriority	<< (IntNum % 4);
+		PRIx(IntNum) |= u32_IntPriority	<< (IntNum % 4);
 		return STD_TYPES_OK;
 	}
 	return STD_TYPES_NOK;

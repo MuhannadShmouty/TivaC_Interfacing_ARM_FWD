@@ -2,7 +2,7 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------*/
 /*      
- *  \file  IntCtrl_Lcfg.c
+ *  \file  SysClk_Lcfg.c
  *  \brief 
  * 
  *  \details
@@ -11,7 +11,7 @@
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
-#include "IntCtrl_Types.h"
+#include "stdbool.h"
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -24,28 +24,7 @@
 /******************************************************************************************************
  *  GLOBAL DATA
  *****************************************************************************************************/
-IntCtrl_ExceptionType activeExceptions[] = {
-	/**	 	Fill in the exceptions to be active	  **/
-	/* TODO:: Comment for usage */
-	
-};
-uint8_t IntCtrl_nActvExp = sizeof(activeExceptions)/sizeof(IntCtrl_ExceptionType);
 
-IntCtrl_InterruptType activeInterrupts[] = {
-	/**	 	Fill in the interrupts to be active	  **/
-	/* TODO:: Comment for usage */
-	IntrCtrl_GPIO_Port_A
-};
-uint8_t IntCtrl_nActvInr = sizeof(activeInterrupts)/sizeof(IntCtrl_InterruptType);
-IntCtrl_InterruptPriority interruptPriorityVals[] = {
-	/**	 	Fill in the interrupts priority values	  **/
-	/* TODO:: Comment for usage */
-	{IntrCtrl_GPIO_Port_A, 0x04}
-};
-
-IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
-	
-};
 /******************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
@@ -70,7 +49,6 @@ IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
  *                                          E_NOT_OK 
  *******************************************************************************/
 
-
 /******************************************************************************************************
- *  END OF FILE:    main.c
+ *  END OF FILE:    SysClk_Lcfg.c
  *****************************************************************************************************/

@@ -51,8 +51,6 @@
 int main(void)
 {
 	IntCtrl_Init();
-	bool val = IntCtrl_SetPriority(IntrCtrl_GPIO_Port_A, 0x05);
-	IntCtrl_EnableInterrupt(IntrCtrl_GPIO_Port_A);
 	return 0;
 }
 
