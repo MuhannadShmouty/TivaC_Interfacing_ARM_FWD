@@ -2,16 +2,16 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------*/
 /*      
- *  \file  		IntCtrl_Lcfg.c
- *  \brief 		NVIC Driver configuration file
+ *  \file  FileName.c
+ *  \brief 
  * 
- *  \details	The file containing configured data to be used by the NVIC driver
+ *  \details
  *****************************************************************************************************/
 
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
-#include "IntCtrl_Types.h"
+#include "stdbool.h"
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -24,28 +24,7 @@
 /******************************************************************************************************
  *  GLOBAL DATA
  *****************************************************************************************************/
-IntCtrl_ExceptionType activeExceptions[] = {
-	/**	 	Fill in the exceptions to be active	  **/
-	/* TODO:: Comment for usage */
-	
-};
-uint8_t IntCtrl_nActvExp = sizeof(activeExceptions)/sizeof(IntCtrl_ExceptionType);
 
-IntCtrl_InterruptType activeInterrupts[] = {
-	/**	 	Fill in the interrupts to be active	  **/
-	/* TODO:: Comment for usage */
-	IntrCtrl_GPIO_Port_F
-};
-uint8_t IntCtrl_nActvInr = sizeof(activeInterrupts)/sizeof(IntCtrl_InterruptType);
-IntCtrl_InterruptPriority interruptPriorityVals[] = {
-	/**	 	Fill in the interrupts priority values	  **/
-	/* TODO:: Comment for usage */
-	{IntrCtrl_GPIO_Port_F, 0x03}
-};
-
-IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
-	
-};
 /******************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
@@ -72,5 +51,5 @@ IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
 
 
 /******************************************************************************************************
- *  END OF FILE:    IntCtrl_Lcfg.c
+ *  END OF FILE:    FileName.c
  *****************************************************************************************************/

@@ -1,14 +1,14 @@
 /***************************************************************************************************************************
  *  FILE DESCRIPTION
  *  ----------------------------------------------------------------------------------------------------------------------*/
-/*          File:       IntCtrl_Cfg.h
- *        Module:       IntCtrl
- *   Description:       The file containing configured data declerations to be used by the NVIC driver
+/*          File:       FileName.h
+ *        Module:       SysCtrl
+ *   Description:       <File Description here>
  *
  **************************************************************************************************************************/
 
-#ifndef INTCTRL_CFG_H
-#define INTCTRL_CFG_H
+#ifndef SYSCTRL_CFG_H
+#define SYSCTRL_CFG_H
 
 /***************************************************************************************************************************
  *  INCLUDES
@@ -18,14 +18,61 @@
  *  GLOBAL CONSTANT MACROS
  **************************************************************************************************************************/
 /*
- *		Interrupt Control Priority Grouping
- *		Options:
- *			INTCTRL_GR_8_SB_1_PRIORITY_GROUP					:		bxxx.
- *			INTCTRL_GR_4_SB_2_PRIORITY_GROUP					:		bxx.y
- *			INTCTRL_GR_2_SB_4_PRIORITY_GROUP					:		bx.yy
- *			INTCTRL_GR_1_SB_8_PRIORITY_GROUP					:		b.yyy
+ *		Configure Oscillator
+ * 		Options:
+ *				MAIN_OSC
+ *				PRECISION_INTERNAL_OSC
+ *				PRECISION_INTERNAL_OSC_DIV_4
+ *				LOW_FREQ_INTERNAL_OSC
+ */
+ #define MAIN_OSC
+ 
+ 
+/*
+*		Configure PLL
+*		Options:
+*			PLL_USED
+*			PLL_NOT_USED
 */
-#define INTCTRL_GR_4_SB_2_PRIORITY_GROUP
+#define PLL_NOT_USED
+
+
+/*
+*		Choose Clock division
+*		Options:
+*			SYSDIV_1
+*			SYSDIV_2
+*			SYSDIV_3
+*			SYSDIV_4
+*			SYSDIV_5
+*			SYSDIV_6
+*			SYSDIV_7
+*			SYSDIV_8
+*			SYSDIV_9
+*			SYSDIV_10
+*			SYSDIV_11
+*			SYSDIV_12
+*			SYSDIV_13
+*			SYSDIV_14
+*			SYSDIV_15
+*			SYSDIV_16
+*/
+#define SYSDIV_4
+	
+/*
+*		Activate Clock for GPIO
+*		Options:
+*			SYSCTRL_ACTVCLK_GPIOA
+*			SYSCTRL_ACTVCLK_GPIOB
+*			SYSCTRL_ACTVCLK_GPIOC
+*			SYSCTRL_ACTVCLK_GPIOD
+*			SYSCTRL_ACTVCLK_GPIOE
+*			SYSCTRL_ACTVCLK_GPIOF
+*/
+
+#define SYSCTRL_ACTVCLK_GPIOA
+#define SYSCTRL_ACTVCLK_GPIOF
+
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  **************************************************************************************************************************/
@@ -44,9 +91,6 @@
 
 
 #endif
-
 /***************************************************************************************************************************
- *  END OF FILE:    IntCtrl_Cfg.h
+ *  END OF FILE:    HeaderFileTemplate.h
  **************************************************************************************************************************/
- 
- 

@@ -12,6 +12,8 @@
  *  INCLUDES
  *****************************************************************************************************/
 #include "IntCtrl.h"
+#include "SysCtrl.h"
+#include "GPIO.h"
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -50,7 +52,17 @@
  *******************************************************************************/
 int main(void)
 {
+	SysCtrl_Init();
 	IntCtrl_Init();
+	GPIO_write(GPIO_PORT_F, GPIO_D1, HIGH);
+	GPIO_write(GPIO_PORT_F, GPIO_D2, HIGH);
+	GPIO_write(GPIO_PORT_F, GPIO_D3, HIGH);
+	
+	
+	GPIO_write(GPIO_PORT_F, GPIO_D1, LOW);
+	GPIO_write(GPIO_PORT_F, GPIO_D2, LOW);
+	GPIO_write(GPIO_PORT_F, GPIO_D3, LOW);
+	
 	return 0;
 }
 

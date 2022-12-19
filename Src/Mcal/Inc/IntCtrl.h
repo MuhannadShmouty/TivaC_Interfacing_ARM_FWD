@@ -2,8 +2,8 @@
  *  FILE DESCRIPTION
  *  ----------------------------------------------------------------------------------------------------------------------*/
 /*          File:       IntCtrl.h
- *        Module:       -
- *   Description:       <File Description here>
+ *        Module:       IntCtrl
+ *   Description:       File containing functions and data declerations to be used by the NVIC driver
  *
  **************************************************************************************************************************/
 

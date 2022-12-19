@@ -19,8 +19,8 @@
  *****************************************************************************************************/
 #define VECT_KEY_MSK								0x05FA
 #define VECT_KEY_POS								16
-#define APINT_PRIGROUP_POS					8
-#define THREE_BITS_MAX_VALUE				8
+#define APINT_PRIGROUP_POS							8
+#define THREE_BITS_MAX_VALUE						8
 /******************************************************************************************************
  *  LOCAL DATA
  *****************************************************************************************************/
@@ -64,7 +64,8 @@ static void SetPriorityGrouping(void)
 	
 	#elif defined(INTCTRL_GR_1_SB_8_PRIORITY_GROUP)
 	APINT = (VECT_KEY_MSK << VECT_KEY_POS) | (0x00000007 << APINT_PRIGROUP_POS);
-	
+	#else
+		#error "Invalid Priority Group/Subgroup"
 	#endif
 }
 
@@ -184,6 +185,17 @@ void  IntCtrl_Init(void)
 	}
 }
 
+/***********************************************************************************************************
+ * \Syntax              : uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriority)
+ * \Description         : Set the interrupt priority value of the given peripheral
+ * 
+ * \Sync\Async          : Synchronous
+ * \Reentrancy          : Non Reentrant
+ * \Parameters     (in) : (IntCtrl_InterruptType)Interrupt number corresponds to the peripheral in the vector table
+ * \Parameters     (in) : (uint32_t)Interrupt priority value (0-7)
+ * \Parameters     (out): None
+ * \Return         value: (STD_TYPES_OK, STD_TYPES_NOK) Corresponds to the behaviour of the function
+ **********************************************************************************************************/
 uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriority)
 {
 	/**		Check for valid priority value  **/
@@ -195,13 +207,32 @@ uint8_t IntCtrl_SetPriority(IntCtrl_InterruptType IntNum, uint32_t u32_IntPriori
 	return STD_TYPES_NOK;
 }
 
-
+/***********************************************************************************************************
+ * \Syntax              : void IntCtrl_EnableInterrupt(IntCtrl_InterruptType IntNum)
+ * \Description         : Enables the interrupt for the given peripheral
+ * 
+ * \Sync\Async          : Synchronous
+ * \Reentrancy          : Non Reentrant
+ * \Parameters     (in) : (IntCtrl_InterruptType)Interrupt number corresponds to the peripheral in the vector table
+ * \Parameters     (out): None
+ * \Return         value: None
+ **********************************************************************************************************/
 void IntCtrl_EnableInterrupt(IntCtrl_InterruptType IntNum)
 {
 	if (isInterrutptType(IntNum))
-		ENx(IntNum) |= 1 << (IntNum & 32);
+		ENx(IntNum) |= 1 << (IntNum % 32);
 }
 
+/***********************************************************************************************************
+ * \Syntax              : void IntCtrl_DisableInterrupt(IntCtrl_InterruptType IntNum)
+ * \Description         : Disables the interrupt for the given peripheral
+ * 
+ * \Sync\Async          : Synchronous
+ * \Reentrancy          : Non Reentrant
+ * \Parameters     (in) : (IntCtrl_InterruptType)Interrupt number corresponds to the peripheral in the vector table
+ * \Parameters     (out): None
+ * \Return         value: None
+ **********************************************************************************************************/
 void IntCtrl_DisableInterrupt(IntCtrl_InterruptType IntNum)
 {
 	if (isInterrutptType(IntNum))

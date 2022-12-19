@@ -2,16 +2,16 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------*/
 /*      
- *  \file  		IntCtrl_Lcfg.c
- *  \brief 		NVIC Driver configuration file
+ *  \file  FileName.c
+ *  \brief 
  * 
- *  \details	The file containing configured data to be used by the NVIC driver
+ *  \details
  *****************************************************************************************************/
 
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
-#include "IntCtrl_Types.h"
+#include "GPIO.h"
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -24,28 +24,7 @@
 /******************************************************************************************************
  *  GLOBAL DATA
  *****************************************************************************************************/
-IntCtrl_ExceptionType activeExceptions[] = {
-	/**	 	Fill in the exceptions to be active	  **/
-	/* TODO:: Comment for usage */
-	
-};
-uint8_t IntCtrl_nActvExp = sizeof(activeExceptions)/sizeof(IntCtrl_ExceptionType);
 
-IntCtrl_InterruptType activeInterrupts[] = {
-	/**	 	Fill in the interrupts to be active	  **/
-	/* TODO:: Comment for usage */
-	IntrCtrl_GPIO_Port_F
-};
-uint8_t IntCtrl_nActvInr = sizeof(activeInterrupts)/sizeof(IntCtrl_InterruptType);
-IntCtrl_InterruptPriority interruptPriorityVals[] = {
-	/**	 	Fill in the interrupts priority values	  **/
-	/* TODO:: Comment for usage */
-	{IntrCtrl_GPIO_Port_F, 0x03}
-};
-
-IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
-	
-};
 /******************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
@@ -69,8 +48,28 @@ IntCtrl_ExceptionPriority exceptionPriorityVals[] = {
  * \Return value        : Std_ReturnType    E_OK
  *                                          E_NOT_OK 
  *******************************************************************************/
-
+void GPIO_write(GPIO_PORT port, GPIO_PIN pin, GPIO_LEVEL state)
+{
+	/* GIPO Digital enable */
+	GPIO_BB_SET_BIT(port, GPIODEN_OFFSET, pin);
+	
+	/* GPIO Setdirection */
+	GPIO_BB_SET_BIT(port, GPIODIR_OFFSET, pin);
+	
+	/* GPIO Set data */
+	switch (state)
+	{
+		case HIGH:
+			GPIO_MSK_SET_BIT(port, pin);
+		break;
+		case LOW:
+			GPIO_MSK_CLR_BIT(port, pin);
+		break;
+	}
+	
+	
+}
 
 /******************************************************************************************************
- *  END OF FILE:    IntCtrl_Lcfg.c
+ *  END OF FILE:    FileName.c
  *****************************************************************************************************/
