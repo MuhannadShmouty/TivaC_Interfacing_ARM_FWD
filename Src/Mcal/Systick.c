@@ -2,7 +2,7 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------*/
 /*      
- *  \file  main.c
+ *  \file  Systick.c
  *  \brief 
  * 
  *  \details
@@ -11,9 +11,7 @@
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
-#include "IntCtrl.h"
-#include "SysCtrl.h"
-#include "GPIO.h"
+#include "Systick.h"
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -50,39 +48,26 @@
  * \Return value        : Std_ReturnType    E_OK
  *                                          E_NOT_OK 
  *******************************************************************************/
-int main(void)
+void Systick_Init()
 {
-	SysCtrl_Init();
-	IntCtrl_Init();
+	/* Configure the reload value */
 	
+	/* Clear the STCURRENT register */
 	
-	GPIO_Init(GPIO_PORT_F, GPIO_D1, AMP_DRIVE_8MA); 
-	GPIO_Init(GPIO_PORT_F, GPIO_D2, AMP_DRIVE_8MA);
-	GPIO_Init(GPIO_PORT_F, GPIO_D3, AMP_DRIVE_8MA);
+	/* Choose clock source */
 	
-	GPIO_setDirection(GPIO_PORT_F, GPIO_D0, INPUT_PULLUP); 
-	GPIO_setDirection(GPIO_PORT_F, GPIO_D1, OUTPUT);
-	GPIO_setDirection(GPIO_PORT_F, GPIO_D2, OUTPUT);
-	GPIO_setDirection(GPIO_PORT_F, GPIO_D3, OUTPUT);
-	GPIO_setDirection(GPIO_PORT_F, GPIO_D4, INPUT_PULLUP);
+	/* Enable the systick */
 	
-	
-	if (!GPIO_Read(GPIO_PORT_F, GPIO_D4))
-	{
-		GPIO_Write(GPIO_PORT_F, GPIO_D1, HIGH);
-		GPIO_Write(GPIO_PORT_F, GPIO_D2, HIGH);
-		GPIO_Write(GPIO_PORT_F, GPIO_D3, HIGH);
-		
-		
-		GPIO_Write(GPIO_PORT_F, GPIO_D1, LOW);
-		GPIO_Write(GPIO_PORT_F, GPIO_D2, LOW);
-		GPIO_Write(GPIO_PORT_F, GPIO_D3, LOW);
-	}
-	
-	return 0;
+	/* Enable Systick interrupt */	
 }
 
 
+void Systick_delay()
+{
+	/* Test delay function */
+	/* Loop for i <  (given_time/Tmax) */
+		/* while loop until COUNT bit is high */
+}
 /******************************************************************************************************
- *  END OF FILE:    main.c
+ *  END OF FILE:    Systick.c
  *****************************************************************************************************/

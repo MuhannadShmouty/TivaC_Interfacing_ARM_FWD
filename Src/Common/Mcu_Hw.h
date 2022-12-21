@@ -120,8 +120,16 @@ typedef struct
 
 #define GPIO_BASE_ADDRESS										0x40004000
 #define PERIPH_BB_BASE_ADDRESS							0x42000000
+
+
 #define GPIODEN_OFFSET											0x51C
 #define GPIODIR_OFFSET											0x400
+#define GPIODR2R_OFFSET											0x500
+#define GPIODR4R_OFFSET											0x504
+#define GPIODR8R_OFFSET											0x508
+#define GPIO_ODR_OFFSET											0x50C
+#define GPIO_PUR_OFFSET											0x510
+#define GPIO_PDR_OFFSET											0x514
 
 #define SYSTEM_CTRL_BASE_ADDRESS						0x400FE000
 #define RCC																	(*((volatile    RCC_Tag*)(SYSTEM_CTRL_BASE_ADDRESS + 0x060)))
@@ -131,17 +139,7 @@ typedef struct
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  **************************************************************************************************************************/
-#define GPIO_OFFSET(PORT_NUM)		 (PORT_NUM<4? ((GPIO_BASE_ADDRESS)+((PORT_NUM)*0x1000)):((0x40024000)+((PORT_NUM-4)*0x1000)))
 
-
-#define GPIO_BB_OFFSET(PORT_NUM)				(PORT_NUM<4? ((0x00004000)+((PORT_NUM)*0x1000)):((0x00024000)+((PORT_NUM-4)*0x1000)))
-#define GPIO_BB_SET_BIT(PORT_NUM, OFFSET, BIT_NO)				(*(volatile uint32_t *)((PERIPH_BB_BASE_ADDRESS)\
-																										+ ((GPIO_BB_OFFSET(PORT_NUM)+OFFSET) * 32) + (BIT_NO * 4))) = 1
-#define GPIO_BB_CLR_BIT(PORT_NUM, OFFSET, BIT_NO)				(*(volatile uint32_t *)((PERIPH_BB_BASE_ADDRESS)\
-																										+ ((GPIO_BB_OFFSET(PORT_NUM) + OFFSET) * 32) + (BIT_NO * 4))) = 0
-
-#define GPIO_MSK_SET_BIT(port, pin)									(*(volatile uint32_t*)(GPIO_OFFSET(port) + ((1<<pin)<<2))) = 1<<pin
-#define GPIO_MSK_CLR_BIT(port, pin)									(*(volatile uint32_t*)(GPIO_OFFSET(port) + ((1<<pin)<<2))) = 0<<pin
 
 /***************************************************************************************************************************
  *  GLOBAL DATA PROTOTYES
