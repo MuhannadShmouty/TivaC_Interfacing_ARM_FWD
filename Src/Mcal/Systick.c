@@ -24,14 +24,22 @@
 /******************************************************************************************************
  *  GLOBAL DATA
  *****************************************************************************************************/
-
+cb_type Callback_ptr = NULL;
 /******************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
-
+static void SysTick_Handler(void);
 /******************************************************************************************************
  *  LOCAL FUNCTIONS
  *****************************************************************************************************/
+
+void SysTick_Handler(void)
+{
+	if (Callback_ptr != NULL)
+	{
+		Callback_ptr();
+	}
+}
 
 /******************************************************************************************************
  *  GLOBAL FUNCTIONS
@@ -48,26 +56,38 @@
  * \Return value        : Std_ReturnType    E_OK
  *                                          E_NOT_OK 
  *******************************************************************************/
-void Systick_Init()
+void Systick_Init(uint32_t delay)
 {
-	/* Configure the reload value */
+	/* Configure the reload value in STRELOAD register */
+	/*
+	#ifdef SYSTICK_PIOSC_4
+	uint32_t reloadValue;
+	#elif defined(SYTICK_SYS_CLK)
+	
+	#endif
+	*/
+	STRELOAD.B.RELOAD = 4000000 - 1;
 	
 	/* Clear the STCURRENT register */
+	STCURRENT.B.CURRENT = 0;
 	
-	/* Choose clock source */
-	
+	/* Choose clock source (PIOSC/4 or System clock) */
+	STCTRL.B.CLK_SRC = 0;
 	/* Enable the systick */
-	
+	STCTRL.B.EN = 1;
 	/* Enable Systick interrupt */	
+	STCTRL.B.INTEN = 1;
 }
 
-
-void Systick_delay()
+void Systick_cb(cb_type ptr)
 {
-	/* Test delay function */
-	/* Loop for i <  (given_time/Tmax) */
-		/* while loop until COUNT bit is high */
+	if (ptr != NULL)
+	{
+		Callback_ptr = ptr;
+	}
 }
+
+
 /******************************************************************************************************
  *  END OF FILE:    Systick.c
  *****************************************************************************************************/

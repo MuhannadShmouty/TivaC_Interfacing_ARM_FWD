@@ -14,6 +14,8 @@
 #include "IntCtrl.h"
 #include "SysCtrl.h"
 #include "GPIO.h"
+#include "Systick.h"
+
 
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
@@ -22,7 +24,7 @@
 /******************************************************************************************************
  *  LOCAL DATA
  *****************************************************************************************************/
-
+volatile bool state = true;
 /******************************************************************************************************
  *  GLOBAL DATA
  *****************************************************************************************************/
@@ -38,7 +40,7 @@
 /******************************************************************************************************
  *  GLOBAL FUNCTIONS
  *****************************************************************************************************/
-
+void Systick_HandlerRoutine(void);
 /********************************************************************************
  * \Syntax              : Std ReturnType FunctionName (AnyType parameterName)
  * \Description         : Describe this service
@@ -66,23 +68,34 @@ int main(void)
 	GPIO_setDirection(GPIO_PORT_F, GPIO_D3, OUTPUT);
 	GPIO_setDirection(GPIO_PORT_F, GPIO_D4, INPUT_PULLUP);
 	
+	Systick_Init(1000);
 	
-	if (!GPIO_Read(GPIO_PORT_F, GPIO_D4))
+	Systick_cb(Systick_HandlerRoutine);
+	
+	
+	while(1)
 	{
-		GPIO_Write(GPIO_PORT_F, GPIO_D1, HIGH);
-		GPIO_Write(GPIO_PORT_F, GPIO_D2, HIGH);
-		GPIO_Write(GPIO_PORT_F, GPIO_D3, HIGH);
-		
-		
-		GPIO_Write(GPIO_PORT_F, GPIO_D1, LOW);
-		GPIO_Write(GPIO_PORT_F, GPIO_D2, LOW);
-		GPIO_Write(GPIO_PORT_F, GPIO_D3, LOW);
+		if (state)
+		{
+			GPIO_Write(GPIO_PORT_F, GPIO_D1, HIGH);
+			GPIO_Write(GPIO_PORT_F, GPIO_D2, HIGH);
+			GPIO_Write(GPIO_PORT_F, GPIO_D3, HIGH);
+			
+		}
+		else
+		{
+			GPIO_Write(GPIO_PORT_F, GPIO_D1, LOW);
+			GPIO_Write(GPIO_PORT_F, GPIO_D2, LOW);
+			GPIO_Write(GPIO_PORT_F, GPIO_D3, LOW);
+		}
 	}
-	
-	return 0;
 }
 
 
+void Systick_HandlerRoutine(void)
+{
+	state = !state;
+}
 /******************************************************************************************************
  *  END OF FILE:    main.c
  *****************************************************************************************************/

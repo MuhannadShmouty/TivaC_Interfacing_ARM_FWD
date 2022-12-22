@@ -57,7 +57,7 @@
 *			SYSDIV_15
 *			SYSDIV_16
 */
-#define SYSDIV_4
+#define SYSDIV_1
 	
 /*
 *		Activate Clock for GPIO

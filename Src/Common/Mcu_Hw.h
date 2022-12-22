@@ -21,26 +21,26 @@
 
 typedef struct
 {
-    uint32_t VECAT      :8;
-    uint32_t            :3;      
-    uint32_t RETBASE    :1;
-    uint32_t VECPEND	  :7;
-    uint32_t            :2;      
-    uint32_t ISRPEND    :1;
-    uint32_t ISRPRE     :1;
-    uint32_t            :1;      
-    uint32_t PENDSTCLR  :1;
-    uint32_t PENDSTSET  :1;
-    uint32_t UNPENDSV   :1;
-    uint32_t PENDSV     :1;
-    uint32_t            :2;      
-    uint32_t NMISET     :1;
+	uint32_t VECAT      :8;
+	uint32_t            :3;      
+	uint32_t RETBASE    :1;
+	uint32_t VECPEND	  :7;
+	uint32_t            :2;      
+	uint32_t ISRPEND    :1;
+	uint32_t ISRPRE     :1;
+	uint32_t            :1;      
+	uint32_t PENDSTCLR  :1;
+	uint32_t PENDSTSET  :1;
+	uint32_t UNPENDSV   :1;
+	uint32_t PENDSV     :1;
+	uint32_t            :2;      
+	uint32_t NMISET     :1;
 }INTCTRL_BF;
 
 typedef union
 {
-    uint32_t R;
-    INTCTRL_BF B;
+	uint32_t R;
+	INTCTRL_BF B;
 }INTCTRL_Tag;
 
 
@@ -109,14 +109,54 @@ typedef struct
 	uint32_t 				:27;
 }RCGCGPIO_BF;
 
+typedef struct
+{
+	uint32_t EN			 :1;
+	uint32_t INTEN   :1;
+	uint32_t CLK_SRC :1;
+	uint32_t         :13;
+	uint32_t COUNT   :1;
+	uint32_t 				 :15;
+} STCTRL_BF;
 
+typedef union
+{
+    uint32_t R;
+    STCTRL_BF B;
+}STCTRL_Tag;
 
+typedef struct
+{
+	uint32_t RELOAD   :24;
+	uint32_t 					:8;
+} STRELOAD_BF;
+
+typedef union
+{
+	uint32_t R;
+	STRELOAD_BF B;
+} STRELOAD_Tag;
+
+typedef struct
+{
+	uint32_t CURRENT		:24;
+	uint32_t						:8;
+} STCURRENT_BF;
+
+typedef union
+{
+	uint32_t R;
+	STCURRENT_BF B;
+} STCURRENT_Tag;
 /***************************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  ***************************************************************************************************************************/
 #define CORTEX_M4_PERIPH_BASE_ADDRESS       0xE000E000
-#define APINT                               (*((volatile    uint32_t*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0xD0C)))
-#define INTCTRL                             (*((volatile INTCTRL_Tag*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0xD04)))
+#define APINT                               (*((volatile      uint32_t*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0xD0C)))
+#define INTCTRL                             (*((volatile   INTCTRL_Tag*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0xD04)))
+#define STCTRL															(*((volatile    STCTRL_Tag*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0x010)))
+#define STRELOAD														(*((volatile  STRELOAD_Tag*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0x014)))
+#define STCURRENT														(*((volatile STCURRENT_Tag*)(CORTEX_M4_PERIPH_BASE_ADDRESS + 0x018)))
 
 #define GPIO_BASE_ADDRESS										0x40004000
 #define PERIPH_BB_BASE_ADDRESS							0x42000000
@@ -132,10 +172,11 @@ typedef struct
 #define GPIO_PDR_OFFSET											0x514
 
 #define SYSTEM_CTRL_BASE_ADDRESS						0x400FE000
-#define RCC																	(*((volatile    RCC_Tag*)(SYSTEM_CTRL_BASE_ADDRESS + 0x060)))
-#define RCC2																(*((volatile   RCC2_Tag*)(SYSTEM_CTRL_BASE_ADDRESS + 0x070)))
-#define PLLSTAT															(*((volatile PLLSTAT_BF*)(SYSTEM_CTRL_BASE_ADDRESS + 0x168)))
+#define RCC																	(*((volatile     RCC_Tag*)(SYSTEM_CTRL_BASE_ADDRESS + 0x060)))
+#define RCC2																(*((volatile    RCC2_Tag*)(SYSTEM_CTRL_BASE_ADDRESS + 0x070)))
+#define PLLSTAT															(*((volatile  PLLSTAT_BF*)(SYSTEM_CTRL_BASE_ADDRESS + 0x168)))
 #define RCGCGPIO														(*((volatile RCGCGPIO_BF*)(SYSTEM_CTRL_BASE_ADDRESS + 0x608)))
+
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  **************************************************************************************************************************/
