@@ -2,8 +2,8 @@
  *  FILE DESCRIPTION
  *  ------------------------------------------------------------------------------------------------------------------------------*/
 /*      
- *  \file  FileName.c
- *  \brief 
+ *  \file  GPIO.c
+ *  \brief Control and configure general purpose i/o pins
  * 
  *  \details
  ***********************************************************************************************************************************/
@@ -48,17 +48,22 @@
  *  GLOBAL FUNCTIONS
  ***********************************************************************************************************************************/
 
-/********************************************************************************
- * \Syntax              : Std ReturnType FunctionName (AnyType parameterName)
- * \Description         : Describe this service
- * 
- * \Sync\Async          : Synchronous
- * \Reentrancy          : Non Reentrant
- * \Parameters     (in) : parameterName     Parameter Description
- * \Parameters     (out): None
- * \Return value        : Std_ReturnType    E_OK
- *                                          E_NOT_OK 
- *******************************************************************************/
+void GPIO_Init(GPIO_PORT port, GPIO_PIN pin, GPIO_AMP amps)
+{
+	switch (amps)
+	{
+		case AMP_DRIVE_2MA:
+			GPIO_BB_SET_BIT(port, GPIODR2R_OFFSET, pin);
+			break;
+		case AMP_DRIVE_4MA:
+			GPIO_BB_SET_BIT(port, GPIODR4R_OFFSET, pin);
+			break;
+		case AMP_DRIVE_8MA:
+			GPIO_BB_SET_BIT(port, GPIODR8R_OFFSET, pin);
+			break;
+	}
+}
+
 void GPIO_Write(GPIO_PORT port, GPIO_PIN pin, GPIO_LEVEL state)
 {	
 	/* GPIO Set data */
@@ -100,21 +105,6 @@ void GPIO_setDirection(GPIO_PORT port, GPIO_PIN pin, GPIO_DIR direction)
 	}
 }
 
-void GPIO_Init(GPIO_PORT port, GPIO_PIN pin, GPIO_AMP amps)
-{
-	switch (amps)
-	{
-		case AMP_DRIVE_2MA:
-			GPIO_BB_SET_BIT(port, GPIODR2R_OFFSET, pin);
-			break;
-		case AMP_DRIVE_4MA:
-			GPIO_BB_SET_BIT(port, GPIODR4R_OFFSET, pin);
-			break;
-		case AMP_DRIVE_8MA:
-			GPIO_BB_SET_BIT(port, GPIODR8R_OFFSET, pin);
-			break;
-	}
-}
 
 uint32_t GPIO_Read(GPIO_PORT port, GPIO_PIN pin)
 {
@@ -122,5 +112,5 @@ uint32_t GPIO_Read(GPIO_PORT port, GPIO_PIN pin)
 	return GPIO_GET_BIT(port, pin);
 }
 /***********************************************************************************************************************************
- *  END OF FILE:    FileName.c
+ *  END OF FILE:    GPIO.c
  ***********************************************************************************************************************************/

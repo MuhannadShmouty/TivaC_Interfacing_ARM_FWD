@@ -26,20 +26,17 @@
  *****************************************************************************************************/
 IntCtrl_ExceptionType activeExceptions[] = {
 	/**	 	Fill in the exceptions to be active	  **/
-	/* TODO:: Comment for usage */
 	
 };
 uint8_t IntCtrl_nActvExp = sizeof(activeExceptions)/sizeof(IntCtrl_ExceptionType);
 
 IntCtrl_InterruptType activeInterrupts[] = {
 	/**	 	Fill in the interrupts to be active	  **/
-	/* TODO:: Comment for usage */
 	IntrCtrl_GPIO_Port_F
 };
 uint8_t IntCtrl_nActvInr = sizeof(activeInterrupts)/sizeof(IntCtrl_InterruptType);
 IntCtrl_InterruptPriority interruptPriorityVals[] = {
 	/**	 	Fill in the interrupts priority values	  **/
-	/* TODO:: Comment for usage */
 	{IntrCtrl_GPIO_Port_F, 0x03}
 };
 

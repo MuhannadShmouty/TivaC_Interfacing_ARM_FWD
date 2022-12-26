@@ -45,27 +45,11 @@ void SysTick_Handler(void)
  *  GLOBAL FUNCTIONS
  *****************************************************************************************************/
 
-/********************************************************************************
- * \Syntax              : Std ReturnType FunctionName (AnyType parameterName)
- * \Description         : Describe this service
- * 
- * \Sync\Async          : Synchronous
- * \Reentrancy          : Non Reentrant
- * \Parameters     (in) : parameterName     Parameter Description
- * \Parameters     (out): None
- * \Return value        : Std_ReturnType    E_OK
- *                                          E_NOT_OK 
- *******************************************************************************/
+
 void Systick_Init(uint32_t delay_ms)
 {
 	/* Configure the reload value in STRELOAD register */
-	/*
-	#ifdef SYSTICK_PIOSC_4
-	uint32_t reloadValue;
-	#elif defined(SYTICK_SYS_CLK)
 	
-	#endif
-	*/
 	STRELOAD.B.RELOAD = (delay_ms * (FREQ/1000)) - 1;
 	
 	/* Clear the STCURRENT register */

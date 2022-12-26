@@ -11,7 +11,6 @@
 /******************************************************************************************************
  *  INCLUDES
  *****************************************************************************************************/
-#include "IntCtrl.h"
 #include "SysCtrl.h"
 #include "GPIO.h"
 #include "Systick.h"
@@ -40,26 +39,14 @@ static volatile uint32_t refTotalTime = 20, onTime = 16, offTime = 0, totalTime 
 /******************************************************************************************************
  *  LOCAL FUNCTIONS
  *****************************************************************************************************/
-
+static void PowerLEDs(uint32_t onTime, uint32_t offTime);
+void Systick_HandlerRoutine(void);
 /******************************************************************************************************
  *  GLOBAL FUNCTIONS
  *****************************************************************************************************/
-void Systick_HandlerRoutine(void);
-/********************************************************************************
- * \Syntax              : Std ReturnType FunctionName (AnyType parameterName)
- * \Description         : Describe this service
- * 
- * \Sync\Async          : Synchronous
- * \Reentrancy          : Non Reentrant
- * \Parameters     (in) : parameterName     Parameter Description
- * \Parameters     (out): None
- * \Return value        : Std_ReturnType    E_OK
- *                                          E_NOT_OK 
- *******************************************************************************/
 int main(void)
 {
 	SysCtrl_Init();
-	IntCtrl_Init();
 	
 	
 	GPIO_Init(GPIO_PORT_F, GPIO_D1, AMP_DRIVE_8MA); 
@@ -94,6 +81,7 @@ int main(void)
 
 void Systick_HandlerRoutine(void)
 {
+	
 	/* Increment On time once every 1/4 second if SW1 is pressed */
 	if (!GPIO_Read(GPIO_PORT_F, GPIO_D4))
 	{
@@ -107,6 +95,12 @@ void Systick_HandlerRoutine(void)
 		onTime--;
 		totalTime = refTotalTime;
 	}
+	PowerLEDs(onTime, offTime);
+	
+}
+
+static void PowerLEDs(uint32_t onTime, uint32_t offTime)
+{
 	offTime = refTotalTime - onTime;
 	if (totalTime > offTime + 1)
 	{
@@ -120,8 +114,8 @@ void Systick_HandlerRoutine(void)
 	{
 		totalTime = refTotalTime;
 	}
-	
 }
+
 /******************************************************************************************************
  *  END OF FILE:    main.c
  *****************************************************************************************************/
