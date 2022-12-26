@@ -27,7 +27,7 @@
 
 #define GPIO_MSK_SET_BIT(port, pin)								(*(volatile uint32_t*)(GPIO_OFFSET(port) + ((1<<pin)<<2))) = 1<<pin
 #define GPIO_MSK_CLR_BIT(port, pin)								(*(volatile uint32_t*)(GPIO_OFFSET(port) + ((1<<pin)<<2))) = 0<<pin
-#define GPIO_GET_BIT(port, pin)									(((*(volatile uint32_t*)(GPIO_OFFSET(port))) & (1 << pin))>>pin)
+#define GPIO_GET_BIT(port, pin)										((*(volatile uint32_t*)(GPIO_OFFSET(port) + ((1<<pin)<<2))) >> pin & 1)
 /************************************************************************************************************************************
  *  LOCAL DATA
  ***********************************************************************************************************************************/
@@ -118,6 +118,7 @@ void GPIO_Init(GPIO_PORT port, GPIO_PIN pin, GPIO_AMP amps)
 
 uint32_t GPIO_Read(GPIO_PORT port, GPIO_PIN pin)
 {
+	
 	return GPIO_GET_BIT(port, pin);
 }
 /***********************************************************************************************************************************

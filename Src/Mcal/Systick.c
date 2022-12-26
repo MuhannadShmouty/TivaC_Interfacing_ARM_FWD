@@ -16,7 +16,7 @@
 /******************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTIONS
  *****************************************************************************************************/
-
+#define FREQ		16000000
 /******************************************************************************************************
  *  LOCAL DATA
  *****************************************************************************************************/
@@ -28,7 +28,7 @@ cb_type Callback_ptr = NULL;
 /******************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *****************************************************************************************************/
-static void SysTick_Handler(void);
+
 /******************************************************************************************************
  *  LOCAL FUNCTIONS
  *****************************************************************************************************/
@@ -56,7 +56,7 @@ void SysTick_Handler(void)
  * \Return value        : Std_ReturnType    E_OK
  *                                          E_NOT_OK 
  *******************************************************************************/
-void Systick_Init(uint32_t delay)
+void Systick_Init(uint32_t delay_ms)
 {
 	/* Configure the reload value in STRELOAD register */
 	/*
@@ -66,13 +66,13 @@ void Systick_Init(uint32_t delay)
 	
 	#endif
 	*/
-	STRELOAD.B.RELOAD = 4000000 - 1;
+	STRELOAD.B.RELOAD = (delay_ms * (FREQ/1000)) - 1;
 	
 	/* Clear the STCURRENT register */
 	STCURRENT.B.CURRENT = 0;
 	
 	/* Choose clock source (PIOSC/4 or System clock) */
-	STCTRL.B.CLK_SRC = 0;
+	STCTRL.B.CLK_SRC = 1;
 	/* Enable the systick */
 	STCTRL.B.EN = 1;
 	/* Enable Systick interrupt */	
